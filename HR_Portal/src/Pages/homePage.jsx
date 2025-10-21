@@ -11,8 +11,7 @@ const HomePage = () => {
         </p>
 
         <p className="fs-5 text-secondary">
-          Whether you're here to check your benefits, file time off, or just procrastinate responsibly —
-          we've got your back!
+          Whether you're here to check your calendar, request time off, or just procrastinate responsibly — we've got your back!
         </p>
 
         <div className="alert alert-info fs-5 mt-4 mx-auto" role="alert" style={{ maxWidth: '600px' }}>

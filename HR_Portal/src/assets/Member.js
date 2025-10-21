@@ -7,7 +7,7 @@ const Members = {
         approvesVacation: True
     }
     ],
-    coaches: [
+    coach: [
         {
             name: 'Andy Reid',
             username: 'andy.reid',
@@ -16,7 +16,7 @@ const Members = {
             approvesVacation: True
         }
     ],
-    quaterbacks: [
+    quaterback: [
         {
         name: 'Patrick Mahomes', 
         username: 'patrick.mahomes',
@@ -25,7 +25,7 @@ const Members = {
         approvesVacation: False
     }
     ], 
-    wideRecievers: [
+    wideReciever: [
         {
         name: 'Xavier Worthy', 
         username: 'xavier.worthy',
