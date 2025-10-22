@@ -57,6 +57,9 @@ export function NavBar({ isLoggedIn, handleLogout }) {
                   </li>
                 )}
                 <li className="nav-item">
+                  <Link className="nav-link" to="/hrpolicy">HR Policy</Link>
+                </li>
+                <li className="nav-item">
                   <button
                     className="nav-link btn btn-link"
                     style={{ textDecoration: 'none' }}
