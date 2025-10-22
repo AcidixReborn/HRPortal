@@ -10,7 +10,9 @@ import EventsPage from './Pages/eventsPage.jsx';
 import HRPolicy from './Pages/HRPolicy.jsx';
 import EmployeePolicy from './Pages/employeePolicy.jsx';
 
+
 function App() {
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogout = () => {
