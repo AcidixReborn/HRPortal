@@ -6,11 +6,11 @@ export default function HRPolicy() {
   const sections = [
     {
       title: "Welcome & Purpose",
-      body: `Welcome to Nimbus HR Labs. This document outlines the company's HR policies and expectations. It is intended for training and coursework only and contains fictional information for demonstration purposes. All policies are illustrative and not legally binding.`,
+      body: `This document outlines the company's HR policies and expectations. It is intended for training and coursework only and contains fictional information for demonstration purposes. All policies are illustrative and not legally binding.`,
     },
     {
       title: "Equal Employment Opportunity",
-      body: `Nimbus HR Labs is an equal opportunity employer. We are committed to providing an inclusive workplace free from discrimination on the basis of race, color, religion, sex, age, national origin, disability, or any other protected characteristic. Reasonable accommodations are available upon request.`,
+      body: `We are committed to providing an inclusive workplace free from discrimination on the basis of race, color, religion, sex, age, national origin, disability, or any other protected characteristic. Reasonable accommodations are available upon request.`,
     },
     {
       title: "Code of Conduct",

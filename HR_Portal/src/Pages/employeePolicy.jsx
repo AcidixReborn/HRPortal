@@ -6,43 +6,43 @@ export default function EmployeePolicy() {
   const policies = [
     {
       title: "Employee Conduct",
-      content: `All HR mployees are expected to maintain professionalism and integrity at all times. This includes being courteous to colleagues, clients, and vendors, adhering to company values, and promoting a positive workplace culture. Disrespectful or disruptive behavior may result in disciplinary action.`,
+      content: `Dont Act Up.`,
     },
     {
       title: "Dress Code",
-      content: `HR maintains a smart-casual dress policy. Employees are encouraged to wear clothing that is neat, clean, and professional. Business attire may be required for client meetings, presentations, or events as communicated by management.`,
+      content: `You Must Wear Clothes.`,
     },
     {
       title: "Attendance & Punctuality",
-      content: `Regular attendance is crucial for team collaboration. Employees should arrive on time for work and meetings. Absences and tardiness should be reported to a supervisor as soon as possible. Repeated unexcused absences may impact performance evaluations.`,
+      content: `Be Present.`,
     },
     {
       title: "Use of Technology",
-      content: `Company devices and networks are provided for business use. Limited personal use is acceptable but must not interfere with productivity or security. Employees must not download unauthorized software or visit inappropriate websites while using company resources.`,
+      content: `Gotta have a computer and use it correctly.`,
     },
     {
       title: "Social Media & Public Communication",
-      content: `Employees should use discrewhen posting on social media, especially when identifying themselves as HR employees. Confidential information must never be shared online. Only authorized representatives may speak on behalf of the company.`,
+      content: `Dont use Social Media at work.`,
     },
     {
       title: "Health & Safety",
-      content: `HRritizes the safety of all employees. Staff are expected to follow workplace safety procedures, report hazards immediately, and participate in required safety training. The company maintains compliance with occupational health and safety standards.`,
+      content: `Practice safe work ethics.`,
     },
     {
       title: "Workplace Harassment & Discrimination",
-      content: `Harassment, bullying, or discrimination of any kind will not be tolerated. Employees are encouraged to report any incidents confidentially to HR. Retaliation against individuals who raise concerns in good faith is strictly prohibited.`,
+      content: `Harassment, bullying, or discrimination of any kind will not be tolerated.`,
     },
     {
       title: "Confidentiality",
-      content: `Employees must safeguard company, client, and coworker information. Sensitive data, trade secrets, and proprietary content should not be shared outside the company. Violations may lead to disciplinary action or legal consequences.`,
+      content: `Employees must safeguard company, client, and coworker information.`,
     },
     {
       title: "Performance & Reviews",
-      content: `Performance reviews occur annually, with informal feedback sessions held quarterly. Employees are evaluated based on job knowledge, teamwork, reliability, and contribution to company goals. Constructive feedback is a two-way process — employees are encouraged to share input with managers.`,
+      content: `Performance reviews occur annually, with informal feedback sessions held quarterly.`,
     },
     {
       title: "Resignation & Termination",
-      content: `Employees are enced to provide at least two weeks’ notice when resigning. Exit interviews may be conducted to gather feedback. HR reserves the right to terminate employment for violation of policies, poor performance, or business needs.`,
+      content: `Employees are enced to provide at least two weeks’ notice when resigning. Exit interviews may be conducted to gather feedback.`,
     },
   ];
 
@@ -53,8 +53,7 @@ export default function EmployeePolicy() {
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-2xl shadow-lg font-sans">
       <header className="mb-6">
-        <h1 className="3xl font-bold text-slate-800">HR Labs — Employee Policy</h1>
-        <p className="mt-2 text-sm text-slate-500">(Fictional policy for training/demo use)</p>
+        <h1 className="3xl font-bold text-slate-800">HR — Employee Policy</h1>
       </header>
 
       <div className="mb-4 flex gap-3">
