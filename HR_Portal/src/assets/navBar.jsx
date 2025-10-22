@@ -41,9 +41,9 @@ export function NavBar({ isLoggedIn, handleLogout }) {
                     <Link className="nav-link" to="/login">Login</Link>
                   </li>
                 )}
-                {currentPath !== '/register' && (
+                {currentPath !== '/signUpPage' && (
                   <li className="nav-item">
-                    <Link className="nav-link" to="/register">Register</Link>
+                    <Link className="nav-link" to="/signUp">Sign Up</Link>
                   </li>
                 )}
               </>
