@@ -4,7 +4,7 @@ import './App.css';
 import { NavBar } from './assets/navBar.jsx';
 import HomePage from './Pages/homePage.jsx';
 import LoginPage from './Pages/loginPage.jsx';
-import RegisterPage from './Pages/registerPage.jsx';
+import SignUpPage from './Pages/signUpPage.jsx';
 import Events from './Pages/eventsPage.jsx';
 import EventsPage from './Pages/eventsPage.jsx'; 
 
@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/events" element={<Events />} />
         <Route path="/events" element={<EventsPage />} />
       </Routes>
