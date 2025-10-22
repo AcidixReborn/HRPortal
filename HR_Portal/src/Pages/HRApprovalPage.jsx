@@ -4,6 +4,14 @@ export default function HRApprovalPage() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser || currentUser.role.toLowerCase() !== 'hr') {
+      alert('Access denied. HR only.');
+      window.location.href = '/login'; 
+    }
+  }, []);
+
+  useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
     setUsers(storedUsers);
   }, []);

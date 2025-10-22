@@ -8,39 +8,39 @@ const LoginPage = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+  const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
 
-    const matchingUser = storedUsers.find(
-      (user) => user.email === email && user.password === password
-    );
+  const matchingUser = storedUsers.find(
+    (user) =>
+      user.email.toLowerCase() === email.toLowerCase() &&
+      user.password === password
+  );
 
-    if (matchingUser) {
-      // ✅ Check HR approval status before logging in
-      if (!matchingUser.approved) {
-        setErrorMessage(
-          'Your account is pending HR approval. Please wait for approval before logging in.'
-        );
-        return;
-      }
-
-      // If approved, allow login
-      setIsLoggedIn(true);
-      localStorage.setItem('currentUser', JSON.stringify(matchingUser));
-      setErrorMessage('');
-
-      // Optionally: direct HR to approval page or employees to events
-      if (matchingUser.role.toLowerCase() === 'hr') {
-        navigate('/hr-approval'); // HR-specific route (if you have one)
-      } else {
-        navigate('/events'); // Regular employee route
-      }
-
-    } else {
-      setErrorMessage('Invalid email or password. Please try again.');
+  if (matchingUser) {
+    if (!matchingUser.approved) {
+      setErrorMessage(
+        'Your account is pending HR approval. Please wait for approval before logging in.'
+      );
+      return;
     }
-  };
+
+    setIsLoggedIn(true);
+    localStorage.setItem('currentUser', JSON.stringify(matchingUser));
+    setErrorMessage('');
+
+    if (matchingUser.role.toLowerCase() === 'hr') {
+      navigate('/hr-approval'); 
+    } else {
+      navigate('/events'); 
+    }
+
+  } else {
+    setErrorMessage('Invalid email or password. Please try again.');
+  }
+};
+
 
   return (
     <div className="container mt-5" style={{ maxWidth: '500px' }}>

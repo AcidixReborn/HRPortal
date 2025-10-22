@@ -1,18 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; 
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { NavBar } from './assets/navBar.jsx';
 import HomePage from './Pages/homePage.jsx';
 import LoginPage from './Pages/loginPage.jsx';
 import SignUpPage from './Pages/signUpPage.jsx';
-import Events from './Pages/eventsPage.jsx';
 import EventsPage from './Pages/eventsPage.jsx'; 
 import HRPolicy from './Pages/HRPolicy.jsx';
 import EmployeePolicy from './Pages/employeePolicy.jsx';
-
+import HRApprovalPage from './Pages/HRApprovalPage.jsx';
 
 function App() {
-  
+  useEffect(() => {
+    const hrUser = {
+      name: "HR Admin",
+      email: "test@yahoo.com",
+      role: "HR",
+      password: "Test",
+      approved: true
+    };
+
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    if (!users.some(u => u.email === hrUser.email)) {
+      users.push(hrUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      console.log('Seeded HR user');
+    }
+  }, []);
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogout = () => {
@@ -28,10 +43,10 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/events" element={<Events />} />
         <Route path="/events" element={<EventsPage />} />
-        <Route path="/HR Policy" element={<HRPolicy />} />
-        <Route path="/Employee Policy" element={<EmployeePolicy />} />
+        <Route path="/hr-policy" element={<HRPolicy />} />
+        <Route path="/employee-policy" element={<EmployeePolicy />} />
+        <Route path="/hr-approval" element={<HRApprovalPage />} />
       </Routes>
     </div>
   );

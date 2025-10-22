@@ -9,39 +9,41 @@ const SignUpPage = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    if (name && email && password && role) {
-      const newUser = {
-        name,
-        email: email.toLowerCase(),
-        role,
-        password,
-        approved: false, // <---- NEW: must be approved by HR
-      };
+  if (name && email && password && role) {
+    const newUser = {
+      name,
+      email: email.toLowerCase(),
+      role,
+      password,
+      approved: role.toLowerCase() === 'hr' ? true : false, 
+    };
 
-      const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
 
-      // Check if email already exists
-      const alreadyExists = existingUsers.some(u => u.email === newUser.email);
-      if (alreadyExists) {
-        alert('An account with this email already exists.');
-        return;
-      }
-
-      existingUsers.push(newUser);
-      localStorage.setItem('users', JSON.stringify(existingUsers));
-
-      alert(
-        'Signup successful! Your account is pending HR approval. You will be able to log in once approved.'
-      );
-
-      navigate('/login');
-    } else {
-      alert('Please fill in all fields.');
+    const alreadyExists = existingUsers.some(u => u.email === newUser.email);
+    if (alreadyExists) {
+      alert('An account with this email already exists.');
+      return;
     }
-  };
+
+    existingUsers.push(newUser);
+    localStorage.setItem('users', JSON.stringify(existingUsers));
+
+    alert(
+      newUser.approved
+        ? 'Signup successful! You can now log in.'
+        : 'Signup successful! Your account is pending HR approval. You will be able to log in once approved.'
+    );
+
+    navigate('/login');
+  } else {
+    alert('Please fill in all fields.');
+  }
+};
+
 
   return (
     <div className="container mt-5" style={{ maxWidth: '500px' }}>
