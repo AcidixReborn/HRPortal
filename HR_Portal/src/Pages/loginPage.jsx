@@ -17,10 +17,26 @@ const LoginPage = ({ setIsLoggedIn }) => {
     );
 
     if (matchingUser) {
+      // ✅ Check HR approval status before logging in
+      if (!matchingUser.approved) {
+        setErrorMessage(
+          'Your account is pending HR approval. Please wait for approval before logging in.'
+        );
+        return;
+      }
+
+      // If approved, allow login
       setIsLoggedIn(true);
       localStorage.setItem('currentUser', JSON.stringify(matchingUser));
       setErrorMessage('');
-      navigate('/events');
+
+      // Optionally: direct HR to approval page or employees to events
+      if (matchingUser.role.toLowerCase() === 'hr') {
+        navigate('/hr-approval'); // HR-specific route (if you have one)
+      } else {
+        navigate('/events'); // Regular employee route
+      }
+
     } else {
       setErrorMessage('Invalid email or password. Please try again.');
     }
@@ -38,7 +54,7 @@ const LoginPage = ({ setIsLoggedIn }) => {
             id="loginEmail"
             value={email}
             onChange={(e) => setEmail(e.target.value.toLowerCase())}
-            placeholder="test@yahoo for testing purposes"
+            placeholder="Enter your email"
             required
           />
         </div>
@@ -51,7 +67,7 @@ const LoginPage = ({ setIsLoggedIn }) => {
             id="loginPassword"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password for testing is Test"
+            placeholder="Enter your password"
             required
           />
         </div>

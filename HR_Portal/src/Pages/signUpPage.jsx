@@ -17,16 +17,26 @@ const SignUpPage = () => {
         name,
         email: email.toLowerCase(),
         role,
-        password
+        password,
+        approved: false, // <---- NEW: must be approved by HR
       };
 
       const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
 
-      existingUsers.push(newUser);
+      // Check if email already exists
+      const alreadyExists = existingUsers.some(u => u.email === newUser.email);
+      if (alreadyExists) {
+        alert('An account with this email already exists.');
+        return;
+      }
 
+      existingUsers.push(newUser);
       localStorage.setItem('users', JSON.stringify(existingUsers));
 
-      alert(`Registered successfully as ${role}!`);
+      alert(
+        'Signup successful! Your account is pending HR approval. You will be able to log in once approved.'
+      );
+
       navigate('/login');
     } else {
       alert('Please fill in all fields.');
@@ -35,14 +45,14 @@ const SignUpPage = () => {
 
   return (
     <div className="container mt-5" style={{ maxWidth: '500px' }}>
-      <h2 className="mb-4 text-center">Sign Up</h2>
+      <h2 className="mb-4 text-center">Employee Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="registerName" className="form-label">Full Name</label>
+          <label htmlFor="signupName" className="form-label">Full Name</label>
           <input
             type="text"
             className="form-control"
-            id="registerName"
+            id="signupName"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Your name"
@@ -51,11 +61,11 @@ const SignUpPage = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="registerEmail" className="form-label">Email address</label>
+          <label htmlFor="signupEmail" className="form-label">Email address</label>
           <input
             type="email"
             className="form-control"
-            id="registerEmail"
+            id="signupEmail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your email"
@@ -64,11 +74,11 @@ const SignUpPage = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="registerPassword" className="form-label">Password</label>
+          <label htmlFor="signupPassword" className="form-label">Password</label>
           <input
             type="password"
             className="form-control"
-            id="registerPassword"
+            id="signupPassword"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Create a password"
@@ -77,9 +87,9 @@ const SignUpPage = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="registerRole" className="form-label">Select Role</label>
+          <label htmlFor="signupRole" className="form-label">Select Role</label>
           <select
-            id="registerRole"
+            id="signupRole"
             className="form-select"
             value={role}
             onChange={(e) => setRole(e.target.value)}
@@ -94,7 +104,9 @@ const SignUpPage = () => {
           </select>
         </div>
 
-        <button type="submit" className="btn btn-success w-100">Sign Up</button>
+        <button type="submit" className="btn btn-primary w-100">
+          Sign Up
+        </button>
       </form>
     </div>
   );
