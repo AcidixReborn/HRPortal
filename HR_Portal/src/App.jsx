@@ -1,21 +1,23 @@
-import { useState, useEffect } from 'react'; 
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import { NavBar } from './assets/navBar.jsx';
 import HomePage from './Pages/homePage.jsx';
 import LoginPage from './Pages/loginPage.jsx';
 import SignUpPage from './Pages/signUpPage.jsx';
-import EventsPage from './Pages/eventsPage.jsx'; 
+import EventsPage from './Pages/eventsPage.jsx';
 import HRPolicy from './Pages/HRPolicy.jsx';
 import EmployeePolicy from './Pages/employeePolicy.jsx';
 import HRApprovalPage from './Pages/HRApprovalPage.jsx';
+import AuthContextProvider, { AuthContext } from './assets/AuthContext.jsx';
+
 
 function App() {
   useEffect(() => {
     const hrUser = {
       name: "HR Admin",
       email: "test@yahoo.com",
-      role: "HR",
+      role: "human resources",
       password: "Test",
       approved: true
     };
@@ -28,27 +30,21 @@ function App() {
     }
   }, []);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem('currentUser'); 
-  };
-
   return (
-    <div className="container-fluid px-0">
-      <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/events" element={<EventsPage />} />
-        <Route path="/hr-policy" element={<HRPolicy />} />
-        <Route path="/employee-policy" element={<EmployeePolicy />} />
-        <Route path="/hr-approval" element={<HRApprovalPage />} />
-      </Routes>
-    </div>
+    <AuthContextProvider>
+      <div className="container-fluid px-0">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/hr-policy" element={<HRPolicy />} />
+          <Route path="/employee-policy" element={<EmployeePolicy />} />
+          <Route path="/hr-approval" element={<HRApprovalPage />} />
+        </Routes>
+      </div>
+    </AuthContextProvider>
   );
 }
 

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import roles from '../assets/Roles.js';
+import { AuthContext } from '../assets/AuthContext.jsx';
 
 const SignUpPage = () => {
   const [name, setName] = useState('');
@@ -8,42 +9,44 @@ const SignUpPage = () => {
   const [role, setRole] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); 
 
-const handleSubmit = (e) => {
-  e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  if (name && email && password && role) {
-    const newUser = {
-      name,
-      email: email.toLowerCase(),
-      role,
-      password,
-      approved: role.toLowerCase() === 'hr' ? true : false, 
-    };
+    if (name && email && password && role) {
+      const newUser = {
+        name,
+        email: email.toLowerCase(),
+        role,
+        password,
+        approved: role.toLowerCase() === 'human resources' ? true : false, 
+      };
 
-    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+      const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
 
-    const alreadyExists = existingUsers.some(u => u.email === newUser.email);
-    if (alreadyExists) {
-      alert('An account with this email already exists.');
-      return;
+      const alreadyExists = existingUsers.some(u => u.email === newUser.email);
+      if (alreadyExists) {
+        alert('An account with this email already exists.');
+        return;
+      }
+
+      existingUsers.push(newUser);
+      localStorage.setItem('users', JSON.stringify(existingUsers));
+
+      if (newUser.approved) {
+        login(newUser); 
+        alert('Signup successful! You are now logged in.');
+        navigate('/events');
+      } else {
+        alert('Signup successful! Your account is pending HR approval. You will be able to log in once approved.');
+        navigate('/login');
+      }
+
+    } else {
+      alert('Please fill in all fields.');
     }
-
-    existingUsers.push(newUser);
-    localStorage.setItem('users', JSON.stringify(existingUsers));
-
-    alert(
-      newUser.approved
-        ? 'Signup successful! You can now log in.'
-        : 'Signup successful! Your account is pending HR approval. You will be able to log in once approved.'
-    );
-
-    navigate('/login');
-  } else {
-    alert('Please fill in all fields.');
-  }
-};
-
+  };
 
   return (
     <div className="container mt-5" style={{ maxWidth: '500px' }}>

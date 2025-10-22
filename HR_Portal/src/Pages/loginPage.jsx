@@ -1,46 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../assets/AuthContext.jsx'; 
 
-const LoginPage = ({ setIsLoggedIn }) => {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); 
 
   const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
 
-  const matchingUser = storedUsers.find(
-    (user) =>
-      user.email.toLowerCase() === email.toLowerCase() &&
-      user.password === password
-  );
+    const matchingUser = storedUsers.find(
+      (user) =>
+        user.email.toLowerCase() === email.toLowerCase() &&
+        user.password === password
+    );
 
-  if (matchingUser) {
-    if (!matchingUser.approved) {
-      setErrorMessage(
-        'Your account is pending HR approval. Please wait for approval before logging in.'
-      );
-      return;
-    }
+    if (matchingUser) {
+      if (!matchingUser.approved) {
+        setErrorMessage(
+          'Your account is pending HR approval. Please wait for approval before logging in.'
+        );
+        return;
+      }
 
-    setIsLoggedIn(true);
-    localStorage.setItem('currentUser', JSON.stringify(matchingUser));
-    setErrorMessage('');
+      login(matchingUser); 
+      setErrorMessage('');
 
-    if (matchingUser.role.toLowerCase() === 'hr') {
-      navigate('/hr-approval'); 
+      if (matchingUser.role.toLowerCase() === 'human resources') {
+        navigate('/hr-approval'); 
+      } else {
+        navigate('/events'); 
+      }
+
     } else {
-      navigate('/events'); 
+      setErrorMessage('Invalid email or password. Please try again.');
     }
-
-  } else {
-    setErrorMessage('Invalid email or password. Please try again.');
-  }
-};
-
+  };
 
   return (
     <div className="container mt-5" style={{ maxWidth: '500px' }}>

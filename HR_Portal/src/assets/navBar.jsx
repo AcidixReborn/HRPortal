@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { AuthContext } from './AuthContext.jsx';
 
-export function NavBar({ isLoggedIn, handleLogout }) {
+export function NavBar() {
+  const { user, logout } = useContext(AuthContext);
   const location = useLocation();
   const currentPath = location.pathname;
 
   const pageTitle =
     currentPath === '/'
-      ? 'Home'
-      : currentPath.slice(1).charAt(0).toUpperCase() + currentPath.slice(2);
+      ? 'HOME'
+      : currentPath
+        .slice(1)
+        .replace(/-/g, ' ')
+        .toUpperCase();
+
+  const isHR = ["hr", "human resources"].includes(user?.role?.toLowerCase());
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top" id="navBar">
       <div className="container-fluid">
+        {/* Navbar Header */}
         <div className="navbar-brand">{pageTitle}</div>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -34,36 +43,48 @@ export function NavBar({ isLoggedIn, handleLogout }) {
               </li>
             )}
 
-            {!isLoggedIn && (
+            {!user && (
               <>
                 {currentPath !== '/login' && (
                   <li className="nav-item">
                     <Link className="nav-link" to="/login">Login</Link>
                   </li>
                 )}
-                {currentPath !== '/signUpPage' && (
+                {currentPath !== '/signup' && (
                   <li className="nav-item">
-                    <Link className="nav-link" to="/signUp">Sign Up</Link>
+                    <Link className="nav-link" to="/signup">Sign Up</Link>
                   </li>
                 )}
               </>
             )}
 
-            {isLoggedIn && (
+            {user && (
               <>
                 {currentPath !== '/events' && (
                   <li className="nav-item">
                     <Link className="nav-link" to="/events">Events</Link>
                   </li>
                 )}
-                <li className="nav-item">
-                  <Link className="nav-link" to="/hrpolicy">HR Policy</Link>
-                </li>
+                {currentPath !== '/hr-policy' && (
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/hr-policy">HR Policy</Link>
+                  </li>
+                )}
+                {currentPath !== '/employee-policy' && (
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/employee-policy">Employee Policy</Link>
+                  </li>
+                )}
+                {isHR && (
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/hr-approval">HR Approval</Link>
+                  </li>
+                )}
                 <li className="nav-item">
                   <button
                     className="nav-link btn btn-link"
                     style={{ textDecoration: 'none' }}
-                    onClick={handleLogout}
+                    onClick={logout}
                   >
                     Logout
                   </button>
